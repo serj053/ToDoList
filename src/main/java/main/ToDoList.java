@@ -27,7 +27,7 @@ public class ToDoList {
     public ResponseEntity<Task> createTask(@RequestBody Task task) {
         task.setDateTime(LocalDateTime.now());
         task.setDone(true);
-        Task task1 = listRepository.save(task);
+        listRepository.save(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(null);
     }
 
@@ -73,7 +73,7 @@ public class ToDoList {
             return ResponseEntity.ok(updatedUser);
 
         }
-        return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/tasks/{id}")
@@ -82,8 +82,8 @@ public class ToDoList {
         if (taskOptional.isPresent()) {
             Task task = taskOptional.get();
             listRepository.delete(task);
-            return new ResponseEntity<Task>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<Task>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
